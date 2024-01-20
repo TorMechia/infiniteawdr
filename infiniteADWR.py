@@ -2,6 +2,7 @@ import cv2
 from PIL import ImageGrab
 import time
 import logging
+from pynput import keyboard
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:\t %(message)s")
 
@@ -13,7 +14,7 @@ def update_screenshot():
     logging.info("Screenshot updated")
 
 
-def is_image_present(image, template, threshold=0.8):
+def is_image_present(image, template, threshold = 0.8):
     """Check if smaller image is present within the larger image
 
     Arguments:
@@ -37,8 +38,19 @@ def is_image_present(image, template, threshold=0.8):
 
 
 # todo: add params (random_cos = False, random_maps = False, random_weather = False, random_funds = False, random_income = False, ai_mode = normal)
-def game_restart():
-    pass
+# Process for simple game restart
+def game_restart(special_type: str=None):
+    if special_type is not None:
+        if special_type == "simple":
+            input_sequence = []
+            exec_inputs(input_sequence)
+
+
+def exec_inputs(input_sequence: list):
+    virtual_keyboard = keyboard.Controller()
+    for keystroke in input_sequence:
+        keyboard.press(keystroke)
+        keyboard.release(keystroke)
 
 
 def test():
@@ -74,7 +86,7 @@ def main():
         current_screenshot = cv2.imread("images\\latest_screenshot.png")
         if is_image_present(current_screenshot, end_screen_template):
             logging.info("Game has ended.")
-            # gamerestart()
+            game_restart(special_type="simple")
         else:
             logging.info("Game is ongoing.")
 
