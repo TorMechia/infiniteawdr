@@ -2,7 +2,7 @@ import cv2
 from PIL import ImageGrab
 import time
 import logging
-from pynput import keyboard
+from pynput.keyboard import Key, Controller
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:\t %(message)s")
 
@@ -14,7 +14,7 @@ def update_screenshot():
     logging.info("Screenshot updated")
 
 
-def is_image_present(image, template, threshold = 0.8):
+def is_image_present(image, template, threshold=0.8):
     """Check if smaller image is present within the larger image
 
     Arguments:
@@ -39,18 +39,24 @@ def is_image_present(image, template, threshold = 0.8):
 
 # todo: add params (random_cos = False, random_maps = False, random_weather = False, random_funds = False, random_income = False, ai_mode = normal)
 # Process for simple game restart
-def game_restart(special_type: str=None):
+def game_restart(special_type: str = None):
+    logging.info(f"Restarting game. Parameters: Special type: {special_type}")
     if special_type is not None:
         if special_type == "simple":
-            input_sequence = []
+            input_sequence = ["a", "a", "a", "a", "a", "a"]  # A x6
             exec_inputs(input_sequence)
 
 
 def exec_inputs(input_sequence: list):
-    virtual_keyboard = keyboard.Controller()
+    logging.info(f"Executing input sequence of {input_sequence}")
+    virtual_keyboard = Controller()
+    time.sleep(5)  # wait for animation to end
     for keystroke in input_sequence:
-        keyboard.press(keystroke)
-        keyboard.release(keystroke)
+        logging.info(f"inputting key '{keystroke}'")
+        virtual_keyboard.press(keystroke)
+        virtual_keyboard.release(keystroke)
+        virtual_keyboard.press(Key.a)
+        time.sleep(2)
 
 
 def test():
@@ -74,11 +80,9 @@ def test():
 
 def main():
     # Setup
-    seconds_interval = 5
+    seconds_interval = 5 #recommend 5 for performance
     end_screen_template = cv2.imread("images\\end_indicator.png")
-    current_screenshot = cv2.imread(
-        "images\\default_screenshot.png"
-    )  # loads dummy screenshot until real one is taken
+    current_screenshot = cv2.imread("images\\default_screenshot.png")  # load dummy screenshot until real one is taken
 
     while True:
         time.sleep(seconds_interval)
@@ -86,9 +90,10 @@ def main():
         current_screenshot = cv2.imread("images\\latest_screenshot.png")
         if is_image_present(current_screenshot, end_screen_template):
             logging.info("Game has ended.")
-            game_restart(special_type="simple")
+            # game_restart(special_type="simple")
         else:
             logging.info("Game is ongoing.")
+            
 
 
 main()
