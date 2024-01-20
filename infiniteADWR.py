@@ -77,11 +77,21 @@ def test():
         print("End NOT detected!")
 
 
-def main():
-    # Setup
-    seconds_interval = 5 #recommend 5 for performance
-    end_screen_template = cv2.imread("images\\end_indicator.png")
+def main(emulation_scale = "4x", seconds_interval = 5):
+    """
+    Keyword Arguments:
+        emulation_scale {str} -- Window scale melonDS is run at. "fullscreen" for maximized window. Fullscreen breaks input. (default: {"4x"})
+        seconds_interval {int} -- Interval between checks for game end (default: {5})
+    """    
+
+    #setup
     current_screenshot = cv2.imread("images\\default_screenshot.png")  # load dummy screenshot until real one is taken
+    if emulation_scale == "fullscreen":
+        end_screen_template = cv2.imread("end_indicator_fullscreen.png")
+    elif emulation_scale == "4x":
+        end_screen_template = cv2.imread("end_indicator_4x.png")
+            
+        
 
     while True:
         time.sleep(seconds_interval)
@@ -93,6 +103,5 @@ def main():
         else:
             logging.debug("Game is ongoing.")
             
-
 
 main()
