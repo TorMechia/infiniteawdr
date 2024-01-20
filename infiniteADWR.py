@@ -90,7 +90,7 @@ def main():
         current_screenshot = cv2.imread("images\\latest_screenshot.png")
         if is_image_present(current_screenshot, end_screen_template):
             logging.info("Game has ended.")
-            # game_restart(special_type="simple")
+            game_restart(special_type="simple")
         else:
             logging.info("Game is ongoing.")
             
