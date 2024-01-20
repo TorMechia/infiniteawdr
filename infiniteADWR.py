@@ -87,12 +87,11 @@ def main(emulation_scale = "4x", seconds_interval = 5):
     #setup
     current_screenshot = cv2.imread("images\\default_screenshot.png")  # load dummy screenshot until real one is taken
     if emulation_scale == "fullscreen":
-        end_screen_template = cv2.imread("end_indicator_fullscreen.png")
+        end_screen_template = cv2.imread("images\\end_indicator_fullscreen.png")
     elif emulation_scale == "4x":
-        end_screen_template = cv2.imread("end_indicator_4x.png")
+        end_screen_template = cv2.imread("images\\end_indicator_4x.png")
             
         
-
     while True:
         time.sleep(seconds_interval)
         update_screenshot()
