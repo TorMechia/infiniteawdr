@@ -56,24 +56,6 @@ def exec_inputs(input_sequence: list[str]):
         time.sleep(2)
 
 
-def test():
-    end_screen_template = cv2.imread("images\\end_indicator.png")
-    assert (
-        end_screen_template is not None
-    ), "file could not be read, check with os.path.exists()"
-    current_screenshot = cv2.imread("images\\end_4player.png")
-    # current_screenshot = cv2.imread('images\\end.png')
-    # current_screenshot = cv2.imread('images\\test_nonend_screenshot.png')
-    # current_screenshot = cv2.imread('images\\default_screenshot.png')
-    assert (
-        current_screenshot is not None
-    ), "file could not be read, check with os.path.exists()"
-
-    if is_image_present(current_screenshot, end_screen_template):
-        print("End detected!")
-    else:
-        print("End NOT detected!")
-
 
 def main(emulation_scale = "4x", seconds_interval = 5):
     """
