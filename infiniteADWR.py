@@ -2,7 +2,7 @@ import cv2
 from PIL import ImageGrab
 import time
 import logging
-from pynput.keyboard import Key, Controller
+import ahk
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:\t %(message)s")
 
@@ -47,13 +47,12 @@ def game_restart(special_type: str = None):
             exec_inputs(input_sequence)
 
 
-def exec_inputs(input_sequence: list):
+def exec_inputs(input_sequence: list[str]):
     logging.info(f"Executing input sequence of {input_sequence}")
-    virtual_keyboard = Controller()
     time.sleep(5)  # wait for animation to end
     for keystroke in input_sequence:
         logging.info(f"inputting key '{keystroke}'")
-        virtual_keyboard.tap(keystroke)
+        ahk.send(keystroke)
         time.sleep(2)
 
 
