@@ -49,15 +49,36 @@ def game_restart(special_type: str = None):
 
 def exec_inputs(input_sequence: list[str]):
     logging.info(f"Executing input sequence of {input_sequence}")
-    time.sleep(5)  # wait for animation to end + show results
+    keystrokes_made = 0
     for keystroke in input_sequence:
+        menu_location = get_menu_location(keystrokes_made)
+        time.sleep(get_location_delay(menu_location)) 
         logging.info(f"inputting key '{keystroke}'")
         ahk.key_down('a')
-        time.sleep(.5) #Necessary for key to be held shortly for input to be registered by melonDS
+        time.sleep(.5) # Key to be must be held shortly for input to be registered by melonDS
         ahk.key_up('a')
-        time.sleep(1)
-
-
+        keystrokes_made += 1
+        
+        
+def get_menu_location(keystrokes_made: int):
+    '''number of keystrokes made shows where we are in the menu'''
+    menu_location_index = ["endscreen", "end_stats", "single_ds_play", "entered_map_menu"]
+    current_location = None
+    try:
+        current_location = menu_location_index[keystrokes_made]
+    except IndexError:
+        current_location = "unknown"
+    logging.debug(f"In menu: {current_location}")
+    return current_location 
+    
+    
+def get_location_delay(menu_location: str):
+    # delay_index = {"endscreen":5, "end_stats":5, "single_ds_play":2, "entered_map_menu":2, "unknown":2} #normal vals
+    delay_index = {"endscreen":2, "end_stats":2, "single_ds_play":2, "entered_map_menu":2, "unknown":2} #debug vals
+    delay = delay_index.get(menu_location, 2)
+    logging.debug(f"Delay for this menu: {delay}")
+    return delay
+    
 
 def main(emulation_scale = "4x", seconds_interval = 5):
     """
@@ -66,8 +87,9 @@ def main(emulation_scale = "4x", seconds_interval = 5):
         seconds_interval {int} -- Interval between checks for game end (default: {5})
     """    
 
-    #setup
-    current_screenshot = cv2.imread("images\\default_screenshot.png")  # load dummy screenshot until real one is taken
+    ## setup
+    # load dummy screenshot until real one is taken
+    current_screenshot = cv2.imread("images\\default_screenshot.png") 
     if emulation_scale == "fullscreen":
         end_screen_template = cv2.imread("images\\end_indicator_fullscreen.png")
     elif emulation_scale == "4x":
