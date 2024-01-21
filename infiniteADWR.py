@@ -53,8 +53,7 @@ def exec_inputs(input_sequence: list):
     time.sleep(5)  # wait for animation to end
     for keystroke in input_sequence:
         logging.info(f"inputting key '{keystroke}'")
-        virtual_keyboard.press(keystroke)
-        virtual_keyboard.release(keystroke)
+        virtual_keyboard.tap(keystroke)
         time.sleep(2)
 
 
@@ -101,6 +100,6 @@ def main(emulation_scale = "4x", seconds_interval = 5):
             game_restart(special_type="simple")
         else:
             logging.debug("Game is ongoing.")
-            
+
 
 main()
