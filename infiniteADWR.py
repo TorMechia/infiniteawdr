@@ -49,11 +49,13 @@ def game_restart(special_type: str = None):
 
 def exec_inputs(input_sequence: list[str]):
     logging.info(f"Executing input sequence of {input_sequence}")
-    time.sleep(5)  # wait for animation to end
+    time.sleep(2)  # wait for animation to end
     for keystroke in input_sequence:
         logging.info(f"inputting key '{keystroke}'")
-        ahk.send(keystroke)
-        time.sleep(2)
+        ahk.key_down('a')
+        time.sleep(.5) #Necessary for key to be held shortly for input to be registered by melonDS
+        ahk.key_up('a')
+        time.sleep(1)
 
 
 
