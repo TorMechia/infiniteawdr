@@ -49,7 +49,7 @@ def game_restart(special_type: str = None):
 
 def exec_inputs(input_sequence: list[str]):
     logging.info(f"Executing input sequence of {input_sequence}")
-    time.sleep(2)  # wait for animation to end
+    time.sleep(5)  # wait for animation to end + show results
     for keystroke in input_sequence:
         logging.info(f"inputting key '{keystroke}'")
         ahk.key_down('a')
