@@ -14,7 +14,7 @@ def game_restart(restart_type: str = "simple"):
     logging.info(f"Restarting game. Restart type: {restart_type}")
     if restart_type == "simple":  # restart with same game parameters
         input_sequence = ["a", "a", "a", "a", "a", "a"]  # A x6
-        exec_inputs(input_sequence)
+        exec_inputs(input_sequence, dynamic_delay=True)
     if restart_type == "random":  # restart with randomized COs and map
         random_game_restart()
 
@@ -24,38 +24,100 @@ def random_game_restart():
     new_map_number = random_map_number("fourP")
     select_map(new_map_number)
     # now in co menu
-    randomize_cos()
+    select_cos()
     exec_inputs(["a", "a"])
 
 
 def random_map_number(map_type="fourP"):
-    """Give random map number, 1 from 30"""
+    """Give random map number for the given menu"""
     num_maps = None
     if map_type == "fourP":
         num_maps = 30
 
-    return random.randint(1, 30)
+    return random.randint(1, num_maps)
 
 
-def randomize_cos():
-    """Picks a random CO for each cpu"""
-    # random number 1-12, then navigate using arrows
+def select_cos(no_co=False):
+    """Picks a random CO for each cpu.
+    Starts on and returns to NEXT button on menu.
+    Assumes 4 player map because this project is a mess and I want out. What was I on yesterday, writing this shit?
+
+    no_co keyword, if set true, will set all CPUs to CO 12, giving them no CO
+    """
+    # assign new cos to each cpu (within program)
+    for cpu in range(4):
+        new_co = 0
+        if no_co:
+            new_co = 12
+        else:
+            new_co = random.randint(0, 11)
+        game_params["cos"][cpu] = new_co
+
+    ##assign new cos to each cpu (within game(so actually do it))
+    # move up to first co (up 2)
+    exec_inputs(["up", "up"])
+    ##begin loop
+    for cpu in range(4):
+        target_co = game_params["cos"][cpu]
+        # select co (a)
+        exec_inputs(["a"])
+        # move right number equal to co number (x right)
+        input_sequence = []
+        for i in range(target_co):
+            input_sequence.append("right")
+        exec_inputs(input_sequence)
+        # select co (a)
+        exec_inputs("a")
+        # move to next cpu (right)
+        exec_inputs("right")
+
+    # after loop, return to NEXT button (2 down)
+    exec_inputs(["down", "down"])
 
 
 def select_map(target_map: int):
-    """selects given map number in the menu, moving from current map"""
+    """Navigates to and selects given map number in the menu, moving from current map
+    Also updates global game params variable
+    """
     current_map = game_params["map_number"]
 
-    game_params["map_number"] = new_map_number
-    pass
+    # find inputs required, negative for left, postive for right
+    distance = target_map - current_map
+    key_to_press = ""
+    if distance < 0:
+        key_to_press = "left"
+    else:
+        key_to_press = "right"
+
+    # create and submit input sequence to navigate and select map
+    input_sequence = []
+    for i in range(abs(distance)):
+        input_sequence.append(key_to_press)
+    input_sequence.append("a")
+    exec_inputs(input_sequence)
+
+    # update global var
+    game_params["map_number"] = target_map
 
 
-def exec_inputs(input_sequence: list[str]):
+def exec_inputs(input_sequence: list[str], dynamic_delay=False):
+    """Executes the given sequence of inputs.
+
+    Arguments:
+        input_sequence {list[str]} -- Sequence of inputs to be executed.
+
+    Keyword Arguments:
+        dynamic_delay {bool} -- Whether to use dynamic delays based of current keystroke number,
+                                based off of get_location_delay(). Otherwise, uses 2 seconds (default: {False})
+    """
     logging.info(f"Executing input sequence of {input_sequence}")
     keystrokes_made = 0
     for keystroke in input_sequence:
-        menu_location = get_menu_location(keystrokes_made)
-        time.sleep(get_location_delay(menu_location))
+        delay = 2
+        if dynamic_delay:
+            menu_location = get_menu_location(keystrokes_made)
+            delay = get_location_delay(menu_location)
+        time.sleep(delay)
         logging.info(f"inputting key '{keystroke}'")
         ahk.key_down("a")
         # Key to be must be held shortly for input to be registered by melonDS
@@ -82,6 +144,15 @@ def get_menu_location(keystrokes_made: int):
 
 
 def get_location_delay(menu_location: str):
+    """Get delay that should be given before each input for a given menu.
+    Gives 2 as a default value.
+
+    Arguments:
+        menu_location {str} -- current
+
+    Returns:
+        int -- delay
+    """
     # delay_index = {"endscreen":5, "end_stats":5, "single_ds_play":2, "entered_map_menu":2, "unknown":2} #normal vals
     delay_index = {
         "endscreen": 2,
