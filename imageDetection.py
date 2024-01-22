@@ -2,8 +2,6 @@ import logging
 import cv2
 from PIL import ImageGrab
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s:\t %(message)s")
-
 
 def update_screenshot():
     logging.debug("Updating screenshot")
