@@ -52,19 +52,25 @@ def select_cos(no_co=False):
     # assign new cos to each cpu (within program)
     prev_cos = game_params["cos"].copy()
 
+    complete_random_cos = [None, None, None, None]
     for cpu in range(4):
         new_co = 0
         if no_co:
             new_co = 12
         else:
-            new_co = random.randint(0, 11)
-        game_params["cos"][cpu] = new_co
+            while True:
+                new_co = random.randint(0, 11)
+                if new_co not in complete_random_cos:
+                    break
+        complete_random_cos[cpu] = new_co
+
+    game_params["cos"] = complete_random_cos
     logging.debug(f"New random COs choosen: {game_params['cos']}")
-    
+
     cleaned_co_list = organize_cos(game_params["cos"].copy())
     game_params["cos"] = cleaned_co_list
     logging.info(f"New COs choosen: {game_params['cos']}")
-    
+
     # calc distance for each CO selection
     co_distance = [0, 0, 0, 0]
     for cpu in range(4):
@@ -112,18 +118,18 @@ def organize_cos(co_list: list[int]) -> list[int]:
 
     # CO_number : CPU_slot
     co_team_allegiance = {
-        0: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 1,
-        5: 1,
-        6: 1,
-        7: 2,
-        8: 2,
-        9: 3,
-        10: 3,
-        11: 3,
+        0: 0,  # Will
+        1: 0,  # Brenner
+        2: 0,  # Lin
+        3: 0,  # Isabella
+        4: 1,  # Tasha
+        5: 1,  # Gage
+        6: 1,  # Forsythe
+        7: 2,  # Waylon
+        8: 2,  # Greyfield
+        9: 3,  # Penny
+        10: 3,  # Tabitha
+        11: 3,  # Caulder
         12: None,  # 12 means no CO. If that comes up, something has gone horribly wrong
     }
 
