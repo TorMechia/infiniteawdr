@@ -59,8 +59,12 @@ def select_cos(no_co=False):
         else:
             new_co = random.randint(0, 11)
         game_params["cos"][cpu] = new_co
+    logging.debug(f"New random COs choosen: {game_params['cos']}")
+    
+    cleaned_co_list = organize_cos(game_params["cos"].copy())
+    game_params["cos"] = cleaned_co_list
     logging.info(f"New COs choosen: {game_params['cos']}")
-
+    
     # calc distance for each CO selection
     co_distance = [0, 0, 0, 0]
     for cpu in range(4):
@@ -92,6 +96,49 @@ def select_cos(no_co=False):
 
     # after loop, return to NEXT button (2 down)
     exec_inputs(["down", "down"], delay_type="fast")
+
+
+def organize_cos(co_list: list[int]) -> list[int]:
+    """Re-arranges the given COs to "soft sort" them into their proper teams
+    Function will attempt to place COs onto the CPU slot corresponding with their proper team,
+    unless that slot has already been filled by another CO.
+
+    Each CPU slot correlates to a team:
+    - CPU 0: 12th Battalion
+    - CPU 1: New Rubinelle Army
+    - CPU 2: Lazurian Army
+    - CPU 3: Intelligent Defense Systems
+    """
+
+    # CO_number : CPU_slot
+    co_team_allegiance = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 1,
+        5: 1,
+        6: 1,
+        7: 2,
+        8: 2,
+        9: 3,
+        10: 3,
+        11: 3,
+        12: None,  # 12 means no CO. If that comes up, something has gone horribly wrong
+    }
+
+    # each co looks up their team, then attempts to swap
+    for moving_cpu in range(len(co_list)):
+        moving_co = co_list[moving_cpu]
+        target_cpu = co_team_allegiance[moving_co]
+        target_co = co_list[target_cpu]
+        # check if target CPU slot is used
+        if co_team_allegiance[target_co] != target_cpu:  # slot empty, swap!
+            co_list[target_cpu] = moving_co
+            co_list[moving_cpu] = target_co
+            logging.debug(f"CO {moving_co} swapped with CO {target_co}")
+
+    return co_list
 
 
 def select_map(target_map: int):
