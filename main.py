@@ -28,7 +28,7 @@ def random_game_restart():
     logging.debug("Now in co menu. Selecting random COs")
     select_cos()
     logging.info("COs randomly selected, starting game")
-    exec_inputs(["a", "a"])
+    exec_inputs(["a", "a", "a"], delay_type="default")
 
 
 def random_map_number(map_type="fourP"):
@@ -50,6 +50,8 @@ def select_cos(no_co=False):
     no_co keyword, if set true, will set all CPUs to CO 12, giving them no CO
     """
     # assign new cos to each cpu (within program)
+    prev_cos = game_params["cos"].copy()
+
     for cpu in range(4):
         new_co = 0
         if no_co:
@@ -59,27 +61,37 @@ def select_cos(no_co=False):
         game_params["cos"][cpu] = new_co
     logging.info(f"New COs choosen: {game_params['cos']}")
 
+    # calc distance for each CO selection
+    co_distance = [0, 0, 0, 0]
+    for cpu in range(4):
+        co_distance[cpu] = game_params["cos"][cpu] - prev_cos[cpu]
+        logging.debug(f"Distance for cpu {cpu} found to be {co_distance[cpu]}")
+
     ##assign new cos to each cpu (within game(so actually do it))
     # move up to first co (up 2)
     exec_inputs(["up", "up"])
     ##begin loop
     for cpu in range(4):
-        target_co = game_params["cos"][cpu]
         # select co (a)
-        exec_inputs(["a"])
-        # move right number equal to co number (x right)
+        exec_inputs(["a"], delay_type="fast")
+
+        # move Right number equal to co number (x Right)
         input_sequence = []
-        for i in range(target_co):
-            input_sequence.append("right")
+        for i in range(abs(co_distance[cpu])):
+            if co_distance[cpu] < 0:
+                input_sequence.append("Left")
+            else:
+                input_sequence.append("Right")
+
         exec_inputs(input_sequence, delay_type="fast")
         # select co (a)
-        exec_inputs("a")
-        # move to next cpu (right)
-        exec_inputs("right")
+        exec_inputs(["a"], delay_type="fast")
+        # move to next cpu (Right)
+        exec_inputs(["Right"], delay_type="fast")
         logging.debug(f"CO selected for CPU {cpu}")
 
     # after loop, return to NEXT button (2 down)
-    exec_inputs(["down", "down"])
+    exec_inputs(["down", "down"], delay_type="fast")
 
 
 def select_map(target_map: int):
@@ -89,18 +101,18 @@ def select_map(target_map: int):
     current_map = game_params["map_number"]
     logging.debug(f"Navigating to map {target_map} from map {current_map}")
 
-    # find inputs required, negative for left, postive for right
+    # find inputs required, negative for Left, postive for Right
     distance = target_map - current_map
     key_to_press = ""
     if distance < 0:
-        key_to_press = "left"
+        key_to_press = "Left"
     else:
-        key_to_press = "right"
+        key_to_press = "Right"
     logging.debug(f"Distance found to be {distance}, moving to the {key_to_press}")
 
     # create and submit input sequence to navigate and select map
     input_sequence = []
-    for i in range(abs(distance)):
+    for i in range(abs(distance) + 1):
         input_sequence.append(key_to_press)
     input_sequence.append("a")
     logging.debug(f"Input sequence construction concluded: {input_sequence}")
@@ -114,7 +126,7 @@ def exec_inputs(input_sequence: list[str], delay_type="default"):
     """Executes the given sequence of inputs.
     Delay types are:
         - "dynamic" for it to be handled based on the keystroke number (see get_location_delay())
-        - "fast" for 0.25 seconds
+        - "fast" for 0.4 seconds
 
     Arguments:
         input_sequence {list[str]} -- Sequence of inputs to be executed.
@@ -130,13 +142,13 @@ def exec_inputs(input_sequence: list[str], delay_type="default"):
             menu_location = get_menu_location(keystrokes_made)
             delay = get_location_delay(menu_location)
         if delay_type == "fast":
-            delay = 0.25
+            delay = 0.4
 
         time.sleep(delay)
-        logging.info(f"inputting key '{keystroke}'")
+        logging.debug(f"inputting key '{keystroke}'")
         ahk.key_down(keystroke)
         # Key to be must be held shortly for input to be registered by melonDS
-        time.sleep(0.1)
+        time.sleep(0.15)
         ahk.key_up(keystroke)
         keystrokes_made += 1
 
