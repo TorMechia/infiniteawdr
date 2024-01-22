@@ -9,7 +9,7 @@ Game ends are detected by open-cv and screenshots, then inputs are completed via
 
 This implementation only supports four player maps, though this could be changed.
 
-The map and CPU COs are randomized each game.
+The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their own team, but aren't guarnteed placement on it, so that CO combinations remain random. Two of the same CO are possible in one game.
 
 ## Requirements
 ### Python Packages
