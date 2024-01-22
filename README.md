@@ -11,10 +11,15 @@ This implementation only supports four player maps, though this could be changed
 
 The map and CPU COs are randomized each game.
 
-## Package Requirements
+## Requirements
+### Python Packages
 - ahk
 - PIL
 - open-cv
+### Other
+- MelonDS
+- Advance Wars: Days of Ruin ROM
+- Nintendo DS Bios and Firmware files
 
 ## Setup
 After downloading repository:
