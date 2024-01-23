@@ -146,7 +146,6 @@ def organize_cos(co_list: list[int]) -> list[int]:
 
     return co_list
 
-#todo: make compatible with design maps
 def select_map(target_map: int):
     """Navigates to and selects given map number in the menu, moving from current map
     Also updates global game params variable
