@@ -11,6 +11,8 @@ This implementation only supports four player maps, though this could be changed
 
 The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their own team, but aren't guarnteed placement on it, so that CO combinations remain random. Two of the same CO are not possible in one game.
 
+## Future additions?
+- A better map pool, the default 4 player maps are... mediocre. These could be added via design maps, and transfered via save files.
 
 ## Requirements
 ### Python Packages

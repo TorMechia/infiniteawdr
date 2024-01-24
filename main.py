@@ -5,7 +5,7 @@ import ahk
 import imageDetection
 import random
 
-logging.basicConfig(level=logging.DEBUG, format="%(levelname)s:\t %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(levelname)s:\t %(message)s")
 
 
 # todo: add params (random_cos = False, random_maps = False, random_weather = False, random_funds = False, random_income = False, ai_mode = normal)
