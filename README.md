@@ -35,7 +35,7 @@ These could be added via design maps, and transfered via save files.
 After downloading repository:
 * Rename melonDS_anonymized_config.ini to melonDS.ini
 
-The AWDR rom, melonDS emulator, and NDS Bios files are not included in this repository, and must be added manually.
+The necessary AWDR ROM, melonDS emulator, and NDS Bios files are *not* included in this repository; they are intelectual property and I am not risking legal issues over this project. They must be added manually to your local copy.
 * Add melonDS.exe to ~\Melon DS\
 * Add Advance Wars Days of Ruin.nds to ~\ADWR Rom\
 * Add bios7.bin, bios9.bin, firmware.bin to ~\Melon DS\
