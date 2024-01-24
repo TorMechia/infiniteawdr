@@ -12,8 +12,8 @@ The map and CPU COs are randomized each game. Randomly selected COs automaticall
 ## Future additions?
 * A better map pool, the default 4 player maps are... mediocre. These could be added via design maps, and transfered via save files.
 * Randomization of map parameters 
- * Weather (weighted toward clear, but making others possible)
- * Terrain (winter, wasteland, etc.)
+  * Weather (weighted toward clear, but making others possible)
+  * Terrain (winter, wasteland, etc.)
 
 ## Requirements
 ### Python Packages
