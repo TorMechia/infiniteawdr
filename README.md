@@ -10,23 +10,26 @@ This implementation only supports four player maps, though this could be changed
 The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their own team, but aren't guarnteed placement on it, so that CO combinations remain random. Two of the same CO are not possible in one game.
 
 ## Future additions?
-- A better map pool, the default 4 player maps are... mediocre. These could be added via design maps, and transfered via save files.
+* A better map pool, the default 4 player maps are... mediocre. These could be added via design maps, and transfered via save files.
+* Randomization of map parameters 
+* * Weather (weighted toward clear, but making others possible)
+* * Terrain (winter, wasteland, etc.)
 
 ## Requirements
 ### Python Packages
-- ahk
-- PIL
-- open-cv
+* ahk
+* PIL
+* open-cv
 ### Other
-- MelonDS
-- Advance Wars: Days of Ruin ROM
-- Nintendo DS Bios and Firmware files
+* MelonDS
+* Advance Wars: Days of Ruin ROM
+* Nintendo DS Bios and Firmware files
 
 ## Setup
 After downloading repository:
-- Rename melonDS_anonymized_config.ini to melonDS.ini
+* Rename melonDS_anonymized_config.ini to melonDS.ini
 
 The AWDR rom, melonDS emulator, and NDS Bios files are not included in this repository, and must be added manually.
-- Add melonDS.exe to ~\Melon DS\
-- Add Advance Wars Days of Ruin.nds to ~\ADWR Rom\
-- Add bios7.bin, bios9.bin, firmware.bin to ~\Melon DS\
+* Add melonDS.exe to ~\Melon DS\
+* Add Advance Wars Days of Ruin.nds to ~\ADWR Rom\
+* Add bios7.bin, bios9.bin, firmware.bin to ~\Melon DS\
