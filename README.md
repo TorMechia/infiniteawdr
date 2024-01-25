@@ -24,8 +24,8 @@ These could be added via design maps, and transfered via save files.
 ## Requirements
 ### Python Packages
 * ahk
-* PIL
-* open-cv
+* pillow
+* opencv-python
 ### Other
 * MelonDS
 * Advance Wars: Days of Ruin ROM
