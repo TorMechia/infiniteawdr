@@ -245,7 +245,7 @@ def get_location_delay(menu_location: str):
     return delay
 
 
-def main(emulation_scale="4x", seconds_between_checks=5):
+def main(emulation_scale="fullscreen", seconds_between_checks=5):
     """
     Keyword Arguments:
         emulation_scale {str} -- Window scale melonDS is run at. "fullscreen" for maximized window. Fullscreen breaks input. (default: {"4x"})
