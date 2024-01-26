@@ -1,4 +1,4 @@
-## infiniteadwr
+## infiniteawdr
 This is an absolutely awful Python project which aims to allow for the automatic creation and recreation of randomized AI only games in Advanced Wars: Days of Ruin via high-level input scripts to an emulator. 
 
 This was created largely as a practice project for learning Git and Python, as such the code and everything else within this repository is horrendous and created without a semblance of forethought. It is very unlikely anyone other than me will ever find use for this, but here it is anyway. 
