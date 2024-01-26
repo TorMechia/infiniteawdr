@@ -232,7 +232,7 @@ def get_location_delay(menu_location: str):
     Returns:
         int -- delay
     """
-    # delay_index = {"endscreen":5, "end_stats":5, "single_ds_play":2, "entered_map_menu":2, "unknown":2} #normal vals
+    # delay_index = {"endscreen":5, "end_stats":5, "single_ds_play":2, "entered_map_menu":2, "unknown":2} #normal vals 
     delay_index = {
         "endscreen": 2,
         "end_stats": 2,
