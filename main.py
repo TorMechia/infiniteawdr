@@ -33,10 +33,14 @@ def random_game_restart():
 
 def random_map_number(map_type="fourP"):
     """Give random map number for the given menu"""
+    fourP_blacklist = [27]
     num_maps = None
     if map_type == "fourP":
         num_maps = 30
-    map_number = random.randint(1, num_maps)
+    while(True):
+        map_number = random.randint(1, num_maps)
+        if map_number not in fourP_blacklist:
+            break
 
     logging.debug(f"Randomly chose map {map_number}")
     return map_number
