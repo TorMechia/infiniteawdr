@@ -9,6 +9,8 @@ This implementation only supports four player maps, though this could be changed
 
 The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their own team, but aren't guarnteed placement on it, so that CO combinations remain random. Two of the same CO are not possible in one game.
 
+Emulator save file 5 contains current game settings for streaming.
+
 ## Future additions?
 * Implementation of other CPU count games (i.e. two-player and four-player)
 * A better map pool, the default 4 player maps are... mediocre. Could be achieved via: 
