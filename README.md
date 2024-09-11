@@ -19,7 +19,8 @@ These could be added via design maps, and transfered via save files.
   * Weather (weighted toward clear, but making others possible)
   * Terrain (winter, wasteland, etc.)
 * Establishment of a permanent stream of games
-  * A proof of concept stream was already conducted, but a permanent one would be nice to have.
+  * A [proof of concept stream](https://www.youtube.com/watch?v=zHD_zqTZlN0) was already conducted, but potential is present for a long-term setup.
+  * This would require implementation of a system to detect when something has gone wrong (e.g. emulator error, game stalemate), and automatically reset everything.
 
 ## Requirements
 ### Python Packages
