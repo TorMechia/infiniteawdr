@@ -1,13 +1,13 @@
 ## infiniteawdr
-A Python project which aims to allow for the automatic creation of randomized AI only games in Advanced Wars: Days of Ruin via input scripts to an emulator. In retrospect, many of the design decisions herein were poorly planned.
+A Python project which aims to allow for the automatic creation of randomized AI only games in Advanced Wars: Days of Ruin via input scripts to an emulator (MelonDS). 
 
-This was created largely as a practice project for learning Git and Python, as such, everything  within this repository is horrendous. It is very unlikely anyone other than me will ever find use for this, but here it is anyway. 
+In retrospect, many of the design decisions herein were poorly planned. Note that this was created largely as a practice project for learning Git and Python; as such, most of this project's design is... nonideal. 
 
 Game ends are detected by open-cv and screenshots, then inputs are completed via AHK.
 
 This implementation only supports four player maps, though this could be changed.
 
-The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their own team, but aren't guarnteed placement on it ("soft sorted"), so that CO combinations remain random. Two of the same CO are not possible in one game.
+The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their "correct" team color, but are not guarnteed placement on it ("soft sorted"). This allows each CO to have the correct color most of the time, while maintaining that the exact COs in each match is completely random. The only restriction placed on random CO selection is that no two teams can have the same CO. The CO selection option of "No CO" is ignored.
 
 ## Future additions?
 * Implementation of other CPU count games (i.e. two-player and four-player)
@@ -23,20 +23,21 @@ These could be added via design maps, and transfered via save files.
   * This would require implementation of a system to detect when something has gone wrong (e.g. emulator error, game stalemate), and automatically reset everything.
 
 ## Requirements
-### Python Packages
+#### Python Packages
 * ahk
 * pillow
 * opencv-python
-### Other
-* MelonDS
+#### Other
+* [MelonDS](https://melonds.kuribo64.net/)
 * Advance Wars: Days of Ruin ROM
 * Nintendo DS Bios and Firmware files
 
 ## Setup
-After downloading repository:
-* Rename melonDS_anonymized_config.ini to melonDS.ini
+* Clone repository this repository to a Windows machine
+* Rename `.\Melon DS\melonDS_anonymized_config.ini` to `melonDS.ini`
 
-The necessary AWDR ROM, melonDS emulator, and NDS Bios files are *not* included in this repository; they must be added manually to your local copy.
-* Add melonDS.exe to ~\Melon DS\
-* Add Advance Wars Days of Ruin.nds to ~\ADWR Rom\
-* Add bios7.bin, bios9.bin, firmware.bin to ~\Melon DS\
+*The necessary AWDR ROM, MelonDS emulator, and NDS Bios files are *not* included in this repository; they must be added manually to your local copy.*
+* Add the other required files
+  * Add `melonDS.exe` to `.\Melon DS\`
+  * Add `Advance Wars Days of Ruin.nds` *(your AWDR ROM)* to `.\ADWR Rom\`
+  * Add `bios7.bin`, `bios9.bin`, `firmware.bin` to `.\Melon DS\`
