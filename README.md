@@ -7,7 +7,7 @@ Game ends are detected by open-cv and screenshots, then inputs are completed via
 
 This implementation only supports four player maps, though this could be changed.
 
-The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their "correct" team color, but are not guarnteed placement on it ("soft sorted"). This allows each CO to have the correct color most of the time, while maintaining that the exact COs in each match is completely random. The only restriction placed on random CO selection is that no two teams can have the same CO. The CO selection option of "No CO" is ignored.
+The map and CPU COs are randomized each game. Randomly selected COs automatically perfer to be placed on their "correct" team color, but are not guaranteed placement on it ("soft sorted"). This allows each CO to have the correct color most of the time, while maintaining that the exact COs in each match is completely random. The only restriction placed on random CO selection is that no two teams can have the same CO. The CO selection option of "No CO" is ignored.
 
 ## Future additions?
 * Implementation of other CPU count games (i.e. two-player and four-player)
@@ -41,5 +41,6 @@ These could be added via design maps, and transfered via save files.
   * Add `melonDS.exe` to `.\Melon DS\`
   * Add `Advance Wars Days of Ruin.nds` *(your AWDR ROM)* to `.\ADWR Rom\`
   * Add `bios7.bin`, `bios9.bin`, `firmware.bin` to `.\Melon DS\`
+
 
 
