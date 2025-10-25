@@ -1,5 +1,5 @@
 ## infiniteawdr
-A Python project which aims to allow for the automatic creation of randomized AI only games in Advanced Wars: Days of Ruin via input scripts to an emulator (MelonDS). 
+A Python project which aims to allow for the automatic creation of randomized AI only games in Advance Wars: Days of Ruin via input scripts to an emulator (MelonDS). 
 
 In retrospect, many of the design decisions herein were poorly planned. Note that this was created largely as a practice project for learning Git and Python; as such, most of this project's design is... nonideal. 
 
@@ -41,4 +41,5 @@ These could be added via design maps, and transfered via save files.
   * Add `melonDS.exe` to `.\Melon DS\`
   * Add `Advance Wars Days of Ruin.nds` *(your AWDR ROM)* to `.\ADWR Rom\`
   * Add `bios7.bin`, `bios9.bin`, `firmware.bin` to `.\Melon DS\`
+
 
